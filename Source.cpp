@@ -7,8 +7,8 @@ void ifFail()
     std::cout << "Ivesta neteisingai, bandykite is naujo: ";
 }
 
-bool SortByPavarde( Studentas& a,  Studentas& b) { return a.getPavarde() < b.getPavarde(); }
-bool SortByVid(Studentas& a, Studentas& b) { return a.galutinisVid < b.galutinisVid; }
+bool SortByPavarde( Studentas& a,  Studentas& b) { return (a.getPavarde() < b.getPavarde()); }
+bool SortByVid(Studentas& a, Studentas& b) { return (a < b); }
 bool SortByMed(Studentas& a, Studentas& b) { return a.galutinisMed < b.galutinisMed; }
 
 
@@ -122,8 +122,7 @@ void Spausdinimas(std::string vidurkisArMediana, std::vector<Studentas>& rezulta
     if (vidurkisArMediana == "vidurki" || vidurkisArMediana == "Vidurki")fr << std::left << std::setw(15) << "Galutinis (Vid.)\n";
     else if (vidurkisArMediana == "Mediana" || vidurkisArMediana == "mediana")fr << std::left << std::setw(15) << "Galutinis (Med.)\n";
     for (int i = 0; i < kiekStudentu; i++) {
-        fr << std::left << std::setw(20) << rezultatai[i].getPavarde();
-        fr << std::left << std::setw(20) << rezultatai[i].getVardas();
+        fr << rezultatai[i];
         if (vidurkisArMediana == "vidurki" || vidurkisArMediana == "Vidurki")fr << std::left << std::setw(20) << std::setprecision(3) << rezultatai[i].galutinisVid;
         else if (vidurkisArMediana == "Mediana" || vidurkisArMediana == "mediana")fr << std::left << std::setw(20) << std::setprecision(3) << rezultatai[i].galutinisMed;
         fr << std::endl;
@@ -133,9 +132,13 @@ void Spausdinimas(std::string vidurkisArMediana, std::vector<Studentas>& rezulta
 
 void SkirtytiStudentus(std::string vidurkisArMediana, std::vector<Studentas>& rezultatai, int kiekStudentu)
 {
+    std::cout << "3";
     int kiek1 = 0, kiek2 = 0;
     if (vidurkisArMediana == "vidurki") std::sort(rezultatai.begin(), rezultatai.end(), SortByVid);
     else if (vidurkisArMediana == "mediana") std::sort(rezultatai.begin(), rezultatai.end(), SortByMed);
+    for (int i = 0; i < kiekStudentu; i++) {
+        std::cout << rezultatai[i].galutinisMed << std::endl;
+    }
     std::vector<Studentas> tinginiai;
     tinginiai.reserve(kiekStudentu);
     auto start = std::chrono::high_resolution_clock::now();
@@ -163,11 +166,12 @@ void SkirtytiStudentus(std::string vidurkisArMediana, std::vector<Studentas>& re
     Spausdinimas(vidurkisArMediana, rezultatai, kiek1, saunuoliukai);
     Spausdinimas(vidurkisArMediana, tinginiai, kiek2, tinginukai);
     std::cout << std::endl;
-    rezultatai = {}; tinginiai = {};
 }
+
 
 ///Funkcija apskaiciuoja visu pazymiu vidurki ir mediana bei juos isspausdina
 void vidurkisMediana(std::vector<Studentas>& rezultatai, int kiekStudentu, std::string sukurtiFailus, std::string vidurkisArMediana) {
+   
     double vid = 0; //vidurkis
     int isviso = rezultatai[0].ndSkaicius;
     if (sukurtiFailus == "nenoriu") {
@@ -178,9 +182,7 @@ void vidurkisMediana(std::vector<Studentas>& rezultatai, int kiekStudentu, std::
         for (int i = 0; i < kiekStudentu; i++)
         {
             double nd = 0;
-            for (int z = 0; z < rezultatai[0].ndSkaicius; z++) {
-                nd += rezultatai[i].namuDarbai[z];
-            }
+                nd = accumulate(rezultatai[i].namuDarbai.begin(),rezultatai[i].namuDarbai.end(),0);
             vid = (nd / isviso * 0.4) + (rezultatai[i].getEgzaminas() * 0.6);
             rezultatai[i].galutinisVid = vid;
             std::sort(rezultatai[i].namuDarbai.begin(), rezultatai[i].namuDarbai.end());
@@ -200,11 +202,11 @@ void vidurkisMediana(std::vector<Studentas>& rezultatai, int kiekStudentu, std::
                 med = (rezultatai[i].namuDarbai[l] * 0.4) + (rezultatai[i].getEgzaminas() * 0.6);
                 rezultatai[i].galutinisMed = med;
             }
-        }
+        } std::cout << "2";
         SkirtytiStudentus(vidurkisArMediana, rezultatai, kiekStudentu);
     }
     else { ifFail(); vidurkisMediana(rezultatai, kiekStudentu, sukurtiFailus, vidurkisArMediana); }
-
+    
 }
 
 ///I funkcija kreipiamasi jei yra nezinomas namu darbu skaicius ir ivedama, ar norima pazymius suvesti ranka, ar generuoti
@@ -227,7 +229,7 @@ void Skaitymas(std::vector<Studentas>& rezultatai, int kiekStudentu, int nd, Stu
         b.ndSkaicius = nd;
         gal = kazkoksIvedimas(kaipIvestiPazymius, i, b);
         rezultatai.push_back(gal);
-        b = {}; gal = {};
+       // b = {}; gal = {};
     }
     vidurkisMediana(rezultatai, kiekStudentu, sukurtiFailus, vidurkisArMediana);
 }

@@ -1,5 +1,6 @@
-#ifndef V_1VECTOR_H_INCLUDED
-#define V_1VECTOR_H_INCLUDED
+#ifndef HEADER_H_INCLUDED
+#define HEADER_H_INCLUDED
+
 
 #include <iostream>
 #include <iomanip>
@@ -10,7 +11,8 @@
 #include <fstream>
 #include <chrono>
 #include <string>
-
+#include <functional>  
+#include <numeric>   
 
 class Studentas {
 public:
@@ -37,8 +39,24 @@ public:
     inline std::string getVardas() const { return vardas; }
     inline std::string getPavarde() const { return pavarde; }
     inline int getEgzaminas() const { return egzaminas; }
-    ~Studentas() {
-    std::cout << "\nDestr.";  }
+        ~Studentas() {
+    std::cout << "\nDestr.";  }    
+        friend bool operator<(const Studentas& a, const Studentas& b){
+            return bool(a.galutinisVid < b.galutinisVid);
+        }
+        Studentas(const Studentas& s);
+        Studentas& operator=(const Studentas& s);
+        int operator+(const Studentas& s); 
+        int operator-(const Studentas& s);
+        int operator*(const Studentas& s);
+        int operator/(const Studentas& s);
+    
+      friend std::ostream& operator<<(std::ostream& out, const Studentas& a) {
+            out << std::left << std::setw(20) << a.getPavarde();
+            out << std::left << std::setw(20) << a.getVardas();
+            return out;
+        }
+       
 };
 
 
