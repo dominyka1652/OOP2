@@ -1,6 +1,7 @@
 #include "Header.h"
 
 int main() {
+
     std::string arZinoKiek; // ar yra zinomas namu darbu skaicius
     std::vector<Studentas> rezultatai;
     rezultatai.reserve(10000);
@@ -19,17 +20,37 @@ int main() {
         int ndSk;
         std::string pav;
         std::cin >> kiek;
+        while (kiek < 0 || kiek >5 || std::cin.fail())
+        {
+            ifFail();
+            std::cin >> kiek;
+        }
         std::cout << std::endl;
         std::string vidurkisArMediana;
         for (int i = 0; i < kiek; i++)
-        {
+        { int g=1;
             std::cout << "Keliu studentu faila generuoti?: ";
             std::cin >> n;
+            while (std::cin.fail())
+            {
+                ifFail();
+                std::cin >> n;
+            }
             pav = "Studentai" + std::to_string(n) + ".txt";
             std::cout << "Kiek sukurti namu darbu: ";
             std::cin >> ndSk;
+            while (std::cin.fail())
+            {
+                ifFail();
+                std::cin >> ndSk;
+            }
             std::cout << "Norite gauti aritmetini vidurki (irasykite 'vidurki')\n ar mediana (irasykite 'mediana')?: ";
             std::cin >> vidurkisArMediana;
+             for(int i=0; i<g; i++)
+                {
+                      if (vidurkisArMediana == "vidurki" || vidurkisArMediana == "mediana"){}
+                     else {ifFail(); std::cin>> vidurkisArMediana; g++;}
+                 }
             generuotiFailus(n, rezultatai, ndSk, pav);
             auto start = std::chrono::high_resolution_clock::now();
             NuskaitytiIsFailo(rezultatai, pav, sukurtiFailus, ndSk, vidurkisArMediana);
@@ -44,5 +65,5 @@ int main() {
         duomenys(arZinoKiek, rezultatai, sukurtiFailus);
     }
     std::cout << "\nProgramos vykdymas baigtas";
-
+ 
 }
