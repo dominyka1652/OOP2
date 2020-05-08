@@ -13,7 +13,7 @@
 #include <string>
 #include <functional>  
 #include <numeric>   
-
+#include <sstream>
 
 class Zmogus {
 protected:
