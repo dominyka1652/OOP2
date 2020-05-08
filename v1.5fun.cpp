@@ -292,43 +292,34 @@ void NuskaitytiIsFailo(std::vector<Studentas>& rezultatai, std::string pav, std:
         ifFail();
         std::cin >> ndsk;
     }
-    std::ifstream fd(pav);
-    try
-    {
-        if (!fd)
-            throw std::runtime_error("Nepavyko atidaryti failo");
-    }
-    catch (std::exception & e)
-    {
-        std::cout << e.what() << "\n";
-        exit(0);
-    }
-    auto start = std::chrono::high_resolution_clock::now();
+    std::stringstream buffer;
+    std::vector<std::string> vec;
     std::string vardas, pavarde;
+    std::string sudas;
     int egz;
-    if (fd.is_open())
-    {
-        getline(fd, line);
-        while (fd >> vardas) {
-            a.setVardas(vardas);
-            fd >> pavarde;
-            a.setPavarde(pavarde);
-            a.ndSkaicius = ndsk;
-            for (int i = 0; i < a.ndSkaicius; i++)
-            {
-                fd >> nd;
-                a.namuDarbai.push_back(nd);
-            }
-            fd >> egz;
-            a.setEgzaminas(egz);
-            rezultatai.push_back(a);
-            a = {};
-            kiekStudentu++;
+    auto start = std::chrono::high_resolution_clock::now(); auto st = start;
+    std::ifstream open_f(pav);
+    buffer << open_f.rdbuf();
+    open_f.close();
+    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    std::cout << std::to_string(kiekStudentu) + "studentu failo nuskaitymas uztruko: " << diff.count() << " s\n";
+    std::getline(buffer, line);
+    while (buffer >> vardas >> pavarde) {
+        a.setVardas(vardas);
+        a.setPavarde(pavarde);
+        a.ndSkaicius = ndsk;
+        for (int i = 0; i < a.ndSkaicius; i++)
+        {
+            buffer >> nd;
+            a.namuDarbai.push_back(nd);
         }
+        buffer >> egz;
+        a.setEgzaminas(egz);
+        rezultatai.push_back(a);
+        a = {};
+        kiekStudentu++;
+        std::getline(buffer, line);
     }
-    fd.close();
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = end - start;
     if (sukurtiFailus == "n") {
         std::cout << "\n" << std::to_string(kiekStudentu) + " elementu nuskaitymas is failo uztruko: " << diff.count() << " s\n";
         vidurkisMediana(rezultatai, kiekStudentu, sukurtiFailus, vidurkisArMediana);
