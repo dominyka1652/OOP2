@@ -280,6 +280,16 @@ void NuskaitytiIsFailo(std::vector<Studentas>& rezultatai, std::string pav, std:
     Studentas a;
     int kiekStudentu = 0;
     std::string line;
+        if (sukurtiFailus == "n")
+    {
+        std::cout << "Kiek namu darbu yra faile?: ";
+        std::cin >> ndsk;
+    }
+    while (ndsk <= 0 && std::cin.fail())
+    {
+        ifFail();
+        std::cin >> ndsk;
+    }
     std::stringstream buffer;
     std::vector<std::string> vec;
     std::string vardas, pavarde;
