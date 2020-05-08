@@ -1,5 +1,5 @@
-#ifndef HEADER_H_INCLUDED
-#define HEADER_H_INCLUDED
+#ifndef V1_2_H_INCLUDED
+#define V1_2_H_INCLUDED
 
 
 #include <iostream>
@@ -13,7 +13,7 @@
 #include <string>
 #include <functional>  
 #include <numeric>   
-
+#include <sstream>  
 class Studentas {
 public:
     int ndSkaicius;
@@ -26,7 +26,7 @@ private:
     std::string pavarde;
     int egzaminas;
 public:
-    Studentas ()
+    Studentas()
     {
         ndSkaicius = 0;
         galutinisVid = 0;
@@ -39,32 +39,33 @@ public:
     inline std::string getVardas() const { return vardas; }
     inline std::string getPavarde() const { return pavarde; }
     inline int getEgzaminas() const { return egzaminas; }
-        ~Studentas() {
-    std::cout << "\nDestr.";  }    
-        friend bool operator<(const Studentas& a, const Studentas& b){
-            return bool(a.galutinisVid < b.galutinisVid);
-        }
-        Studentas(const Studentas& s);
-        Studentas& operator=(const Studentas& s);
-        int operator+(const Studentas& s); 
-        int operator-(const Studentas& s);
-        int operator*(const Studentas& s);
-        int operator/(const Studentas& s);
-    
-      friend std::ostream& operator<<(std::ostream& out, const Studentas& a) {
-            out << std::left << std::setw(20) << a.getPavarde();
-            out << std::left << std::setw(20) << a.getVardas();
-            return out;
-        }
-       
+    ~Studentas() {
+       /// std::cout << "\nDestr.";
+    }
+    friend bool operator<(const Studentas& a, const Studentas& b) {
+        return bool(a.galutinisVid < b.galutinisVid);
+    }
+    Studentas(const Studentas& s);
+    Studentas& operator=(const Studentas& s);
+    int operator+(const Studentas& s);
+    int operator-(const Studentas& s);
+    int operator*(const Studentas& s);
+    int operator/(const Studentas& s);
+
+    friend std::ostream& operator<<(std::ostream& out, const Studentas& a) {
+        out << std::left << std::setw(20) << a.getPavarde();
+        out << std::left << std::setw(20) << a.getVardas();
+        return out;
+    }
+
 };
 
 
 
 void ifFail();
-bool SortByPavarde( Studentas& a, Studentas& b);
+bool SortByPavarde(Studentas& a, Studentas& b);
 bool SortByVid(Studentas& a, Studentas& b);
-bool SortByMed( Studentas& a, Studentas& b);
+bool SortByMed(Studentas& a, Studentas& b);
 Studentas generavimas(Studentas& b);
 Studentas pazymiuIvedimas(std::string kaipIvestiPazymius, int i, Studentas& b);
 Studentas pazymiuIvedimas2(std::string kaipIvestiPazymius, int i, Studentas& b);
@@ -79,4 +80,3 @@ void duomenys(std::string arZinoKiek, std::vector<Studentas>& rezultatai, std::s
 void generuotiFailus(int& n, std::vector<Studentas>& rezultatai, int& ndSk, std::string pav);
 
 #endif // V_1VECTOR_H_INCLUDED
-

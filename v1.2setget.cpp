@@ -1,4 +1,4 @@
-#include "Header.h"
+#include "v1.2.h"
 
 void Studentas::setVardas(std::string vardas_) {
 	vardas = vardas_;
@@ -26,7 +26,7 @@ Studentas::Studentas(const Studentas& s)
 
 
 
-	Studentas& Studentas::operator=(const Studentas& s) {
+Studentas& Studentas::operator=(const Studentas& s) {
 	if (&s == this) return *this;
 	ndSkaicius = s.ndSkaicius;
 	if (s.galutinisVid) galutinisVid = s.galutinisVid;
@@ -40,7 +40,7 @@ Studentas::Studentas(const Studentas& s)
 
 int Studentas::operator+(const Studentas& s) {
 
-	return int{egzaminas + s.egzaminas };
+	return int{ egzaminas + s.egzaminas };
 }
 
 int Studentas::operator-(const Studentas& s) {
@@ -55,4 +55,3 @@ int Studentas::operator*(const Studentas& s) {
 int Studentas::operator/(const Studentas& s) {
 	return int(egzaminas / s.egzaminas);
 }
-

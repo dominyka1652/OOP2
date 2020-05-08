@@ -1,4 +1,4 @@
-#include "Header.h"
+﻿#include "v1.2.h"
 
 void ifFail()
 {
@@ -7,18 +7,18 @@ void ifFail()
     std::cout << "Ivesta neteisingai, bandykite is naujo: ";
 }
 
-bool SortByPavarde( Studentas& a,  Studentas& b) { return (a.getPavarde() < b.getPavarde()); }
+bool SortByPavarde(Studentas& a, Studentas& b) { return (a.getPavarde() < b.getPavarde()); }
 bool SortByVid(Studentas& a, Studentas& b) { return (a < b); }
 bool SortByMed(Studentas& a, Studentas& b) { return a.galutinisMed < b.galutinisMed; }
 
 
-Studentas generavimas( Studentas& b) {
-   int input;
+Studentas generavimas(Studentas& b) {
+    int input;
     using hrClock = std::chrono::high_resolution_clock;
     std::mt19937 mt(static_cast<long unsigned int>(hrClock::now().time_since_epoch().count()));
     std::cout << "Namu darbu pazymiai: ";
     std::uniform_int_distribution<int> dist(1, 10);
-    for (int k = 0; k < b.ndSkaicius; k++) { 
+    for (int k = 0; k < b.ndSkaicius; k++) {
         input = dist(mt);
         std::cout << input << " ";
         b.namuDarbai.push_back(input);
@@ -33,7 +33,7 @@ Studentas generavimas( Studentas& b) {
 Studentas pazymiuIvedimas(std::string kaipIvestiPazymius, int i, Studentas& b)
 {
     int input; //ivedamas arba generuojamas skaicius
-    if (kaipIvestiPazymius == "sugeneruoti" || kaipIvestiPazymius == "Sugeneruoti")
+    if (kaipIvestiPazymius == "s")
     {
         std::cout << "Kiek pazymiu norite sugeneruoti?: ";
         std::cin >> b.ndSkaicius;
@@ -42,7 +42,7 @@ Studentas pazymiuIvedimas(std::string kaipIvestiPazymius, int i, Studentas& b)
             b = generavimas(b);
     }
 
-    else if (kaipIvestiPazymius == "Ivesti" || kaipIvestiPazymius == "ivesti") {
+    else if (kaipIvestiPazymius == "i") {
         b.ndSkaicius = 1;
         std::cout << "Namu darbu pazymiai (ivedus paskutini pazymi turi but parasomas 0):";
         for (int k = 0; k < b.ndSkaicius; k++) { //sk paaiskinimas 198 eilutej
@@ -61,11 +61,11 @@ Studentas pazymiuIvedimas(std::string kaipIvestiPazymius, int i, Studentas& b)
         int egz;
         std::cout << "Egzamino pazimys ";
         std::cin >> egz;
-           b.setEgzaminas(egz);
+        b.setEgzaminas(egz);
         while (b.getEgzaminas() <= 0 || b.getEgzaminas() > 10 || std::cin.fail())
         {
             ifFail(); std::cin >> egz;
-                b.setEgzaminas(egz);
+            b.setEgzaminas(egz);
         }
     }
     else {
@@ -80,10 +80,10 @@ Studentas pazymiuIvedimas(std::string kaipIvestiPazymius, int i, Studentas& b)
 ///Funkcija tikrina, ar pazymiu ivedimas parasytas tinkamai ir pagal pasirinkima, ar sugeneruoja pazymius, arba leidzia juos ivesti
 Studentas pazymiuIvedimas2(std::string kaipIvestiPazymius, int i, Studentas& b) {
     int input; //ivestas arba sugeneruotas skaicius
-    if (kaipIvestiPazymius == "sugeneruoti" || kaipIvestiPazymius == "Sugeneruoti")
-        b = generavimas( b);
+    if (kaipIvestiPazymius == "s")
+        b = generavimas(b);
 
-    else if (kaipIvestiPazymius == "Ivesti" || kaipIvestiPazymius == "ivesti") {
+    else if (kaipIvestiPazymius == "i") {
         std::cout << "Namu darbu pazymiai: ";
         for (int k = 0; k < b.ndSkaicius; k++) {
             std::cin >> input;
@@ -119,12 +119,13 @@ void Spausdinimas(std::string vidurkisArMediana, std::vector<Studentas>& rezulta
     std::ofstream fr(failas);
     fr << std::left << std::setw(20) << "Pavarde ";
     fr << std::left << std::setw(20) << "Vardas ";
-    if (vidurkisArMediana == "vidurki" || vidurkisArMediana == "Vidurki")fr << std::left << std::setw(15) << "Galutinis (Vid.)\n";
-    else if (vidurkisArMediana == "Mediana" || vidurkisArMediana == "mediana")fr << std::left << std::setw(15) << "Galutinis (Med.)\n";
-    for (int i = 0; i < kiekStudentu; i++) {
-        fr << rezultatai[i];
-        if (vidurkisArMediana == "vidurki" || vidurkisArMediana == "Vidurki")fr << std::left << std::setw(20) << std::setprecision(3) << rezultatai[i].galutinisVid;
-        else if (vidurkisArMediana == "Mediana" || vidurkisArMediana == "mediana")fr << std::left << std::setw(20) << std::setprecision(3) << rezultatai[i].galutinisMed;
+    if (vidurkisArMediana == "v")fr << std::left << std::setw(15) << "Galutinis (Vid.)\n";
+    else if (vidurkisArMediana == "m")fr << std::left << std::setw(15) << "Galutinis (Med.)\n";
+    std::vector<Studentas>::iterator it;
+    for (it = rezultatai.begin(); it != rezultatai.end(); ++it) {
+        fr << (*it);
+        if (vidurkisArMediana == "v")fr << std::left << std::setw(20) << std::setprecision(3) << (*it).galutinisVid;
+        else if (vidurkisArMediana == "m")fr << std::left << std::setw(20) << std::setprecision(3) << (*it).galutinisMed;
         fr << std::endl;
     }
     fr.close();
@@ -132,23 +133,20 @@ void Spausdinimas(std::string vidurkisArMediana, std::vector<Studentas>& rezulta
 
 void SkirtytiStudentus(std::string vidurkisArMediana, std::vector<Studentas>& rezultatai, int kiekStudentu)
 {
-    std::cout << "3";
     int kiek1 = 0, kiek2 = 0;
-    if (vidurkisArMediana == "vidurki") std::sort(rezultatai.begin(), rezultatai.end(), SortByVid);
-    else if (vidurkisArMediana == "mediana") std::sort(rezultatai.begin(), rezultatai.end(), SortByMed);
-    for (int i = 0; i < kiekStudentu; i++) {
-        std::cout << rezultatai[i].galutinisMed << std::endl;
-    }
+    if (vidurkisArMediana == "v") std::sort(rezultatai.begin(), rezultatai.end(), SortByVid);
+    else if (vidurkisArMediana == "m") std::sort(rezultatai.begin(), rezultatai.end(), SortByMed);
+
     std::vector<Studentas> tinginiai;
     tinginiai.reserve(kiekStudentu);
     auto start = std::chrono::high_resolution_clock::now();
-    if (vidurkisArMediana == "vidurki")
+    if (vidurkisArMediana == "v")
     {
         auto k = std::partition(rezultatai.begin(), rezultatai.end(), [](Studentas& i) {return (i.galutinisVid < 5); });
         std::copy(rezultatai.begin(), k, std::back_inserter(tinginiai));
         rezultatai.erase(rezultatai.begin(), k);
     }
-    else if (vidurkisArMediana == "mediana")
+    else if (vidurkisArMediana == "m")
     {
         auto k = std::partition(rezultatai.begin(), rezultatai.end(), [](Studentas& i) {return (i.galutinisMed < 5); });
         std::copy(rezultatai.begin(), k, std::back_inserter(tinginiai));
@@ -171,42 +169,43 @@ void SkirtytiStudentus(std::string vidurkisArMediana, std::vector<Studentas>& re
 
 ///Funkcija apskaiciuoja visu pazymiu vidurki ir mediana bei juos isspausdina
 void vidurkisMediana(std::vector<Studentas>& rezultatai, int kiekStudentu, std::string sukurtiFailus, std::string vidurkisArMediana) {
-   
+
     double vid = 0; //vidurkis
     int isviso = rezultatai[0].ndSkaicius;
-    if (sukurtiFailus == "nenoriu") {
-        std::cout << "Norite gauti aritmetini vidurki (irasykite 'vidurki')\n ar mediana (irasykite 'mediana')?: ";
+    if (sukurtiFailus == "n") {
+        std::cout << "Norite gauti aritmetini vidurki (irasykite 'v')\n ar mediana (irasykite 'm')?: ";
         std::cin >> vidurkisArMediana;
     }
-    if (vidurkisArMediana == "vidurki" || vidurkisArMediana == "mediana") {
-        for (int i = 0; i < kiekStudentu; i++)
+    if (vidurkisArMediana == "v" || vidurkisArMediana == "m") {
+        std::vector<Studentas>::iterator it;
+        for (it = rezultatai.begin(); it != rezultatai.end(); ++it)
         {
             double nd = 0;
-                nd = accumulate(rezultatai[i].namuDarbai.begin(),rezultatai[i].namuDarbai.end(),0);
-            vid = (nd / isviso * 0.4) + (rezultatai[i].getEgzaminas() * 0.6);
-            rezultatai[i].galutinisVid = vid;
-            std::sort(rezultatai[i].namuDarbai.begin(), rezultatai[i].namuDarbai.end());
+            nd = accumulate((*it).namuDarbai.begin(), (*it).namuDarbai.end(), 0);
+            vid = (nd / isviso * 0.4) + ((*it).getEgzaminas() * 0.6);
+            (*it).galutinisVid = vid;
+            std::sort((*it).namuDarbai.begin(), (*it).namuDarbai.end());
 
             if (isviso % 2 == 0)
             {
                 int l = 0;
                 double med = 0; //mediana
                 l = (isviso - 2) / 2; //pazymiu skaicius iki reikiamu skaitmenu
-                med = std::round((rezultatai[i].namuDarbai[l] + rezultatai[i].namuDarbai[l + 1]) / 2) * 0.4 + (rezultatai[i].getEgzaminas() * 0.6);
-                rezultatai[i].galutinisMed = med;
+                med = std::round(((*it).namuDarbai[l] + (*it).namuDarbai[l + 1]) / 2) * 0.4 + ((*it).getEgzaminas() * 0.6);
+                (*it).galutinisMed = med;
             }
             else {
                 int l = 0;
                 double med = 0; //mediana
                 l = isviso / 2; //pazymiu skaicius iki reikiamu skaitmenu
-                med = (rezultatai[i].namuDarbai[l] * 0.4) + (rezultatai[i].getEgzaminas() * 0.6);
-                rezultatai[i].galutinisMed = med;
+                med = ((*it).namuDarbai[l] * 0.4) + ((*it).getEgzaminas() * 0.6);
+                (*it).galutinisMed = med;
             }
-        } std::cout << "2";
+        } 
         SkirtytiStudentus(vidurkisArMediana, rezultatai, kiekStudentu);
     }
     else { ifFail(); vidurkisMediana(rezultatai, kiekStudentu, sukurtiFailus, vidurkisArMediana); }
-    
+
 }
 
 ///I funkcija kreipiamasi jei yra nezinomas namu darbu skaicius ir ivedama, ar norima pazymius suvesti ranka, ar generuoti
@@ -223,13 +222,19 @@ void Skaitymas(std::vector<Studentas>& rezultatai, int kiekStudentu, int nd, Stu
         std::cin >> vardas;
         b.setVardas(vardas);
         std::cout << "Ar norite pazymius irasyti ranka, ar atsitiktinai sugeneruoti?\n";
-        std::cout << "Jei irasyti ranka, iveskite zodi 'ivesti'\n";
-        std::cout << "Jei norite sugeneruoti atsitiktinai, iveskite zodi 'sugeneruoti': ";
+        std::cout << "Jei irasyti ranka, iveskite zodi 'i'\n";
+        std::cout << "Jei norite sugeneruoti atsitiktinai, iveskite zodi 's': ";
         std::cin >> kaipIvestiPazymius;
+        int z = 1;
+        for (int i = 0; i < z; i++)
+        {
+            if(kaipIvestiPazymius == "s" || kaipIvestiPazymius == "i"){}
+            else { ifFail(); std::cin >> kaipIvestiPazymius; z++; }
+        }
         b.ndSkaicius = nd;
         gal = kazkoksIvedimas(kaipIvestiPazymius, i, b);
         rezultatai.push_back(gal);
-       // b = {}; gal = {};
+        // b = {}; gal = {};
     }
     vidurkisMediana(rezultatai, kiekStudentu, sukurtiFailus, vidurkisArMediana);
 }
@@ -238,8 +243,14 @@ void Skaitymas(std::vector<Studentas>& rezultatai, int kiekStudentu, int nd, Stu
 ///bei kreipiasi i kitas funkcijas ivykdzius salygas
 void Ivedimas(std::string arZinoKiek, std::vector<Studentas>& rezultatai, int kiekStudentu, std::string sukurtiFailus, std::string vidurkisArMediana) {
     std::cin >> arZinoKiek; // ar yra zinomas namu darbu skaicius
+    int z = 1;
+    for (int k = 0; k < z; k++)
+    {
+        if(arZinoKiek == "t" || arZinoKiek == "n"){}
+        else { ifFail(); std::cin >> arZinoKiek; z++; }
+    }
     int nd;
-    if (arZinoKiek == "Taip" || arZinoKiek == "taip")
+    if (arZinoKiek == "t")
     {
         std::cout << "Iveskite namu darbu skaiciu: ";
         std::cin >> nd;
@@ -252,7 +263,7 @@ void Ivedimas(std::string arZinoKiek, std::vector<Studentas>& rezultatai, int ki
             Skaitymas(rezultatai, kiekStudentu, nd, pazymiuIvedimas2, sukurtiFailus, vidurkisArMediana);
         }
     }
-    else if (arZinoKiek == "Ne" || arZinoKiek == "ne")
+    else if (arZinoKiek == "n")
     {
         Skaitymas(rezultatai, kiekStudentu, nd, pazymiuIvedimas, sukurtiFailus, vidurkisArMediana);
     }
@@ -269,7 +280,7 @@ void NuskaitytiIsFailo(std::vector<Studentas>& rezultatai, std::string pav, std:
     Studentas a;
     int kiekStudentu = 0;
     std::string line;
-    if (sukurtiFailus == "nenoriu")
+        if (sukurtiFailus == "n")
     {
         std::cout << "Kiek namu darbu yra faile?: ";
         std::cin >> ndsk;
@@ -279,44 +290,36 @@ void NuskaitytiIsFailo(std::vector<Studentas>& rezultatai, std::string pav, std:
         ifFail();
         std::cin >> ndsk;
     }
-    std::ifstream fd(pav);
-    try
-    {
-        if (!fd)
-            throw std::runtime_error("Nepavyko atidaryti failo");
-    }
-    catch (std::exception & e)
-    {
-        std::cout << e.what() << "\n";
-        exit(0);
-    }
-    auto start = std::chrono::high_resolution_clock::now();
+    std::stringstream buffer;
+    std::vector<std::string> vec;
     std::string vardas, pavarde;
+    std::string sudas;
     int egz;
-    if (fd.is_open())
-    {
-        getline(fd, line);
-        while (fd >> vardas) {
+    auto start = std::chrono::high_resolution_clock::now(); auto st = start;
+    std::ifstream open_f(pav);
+    buffer << open_f.rdbuf();
+    open_f.close();
+    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start; 
+    std::cout << std::to_string(kiekStudentu) + "studentu failo nuskaitymas uztruko: " << diff.count() << " s\n";
+    std::getline(buffer, line);
+    while ( buffer >> vardas >> pavarde){ 
             a.setVardas(vardas);
-                fd >> pavarde;
             a.setPavarde(pavarde);
             a.ndSkaicius = ndsk;
             for (int i = 0; i < a.ndSkaicius; i++)
             {
-                fd >> nd;
+                buffer >> nd;
                 a.namuDarbai.push_back(nd);
             }
-            fd >> egz;
+            buffer >> egz;
             a.setEgzaminas(egz);
             rezultatai.push_back(a);
             a = {};
-            kiekStudentu++;
-        }
+           kiekStudentu++; 
+           std::getline(buffer, line);
     }
-    fd.close();
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = end - start;
-    if (sukurtiFailus == "nenoriu") {
+
+    if (sukurtiFailus == "n") {
         std::cout << "\n" << std::to_string(kiekStudentu) + " elementu nuskaitymas is failo uztruko: " << diff.count() << " s\n";
         vidurkisMediana(rezultatai, kiekStudentu, sukurtiFailus, vidurkisArMediana);
     }
@@ -328,7 +331,7 @@ void KiekyraStudentu(std::string arZinoKiek, std::vector<Studentas>& rezultatai,
     std::cin >> kiekStudentu;
     if (kiekStudentu >= 1 && kiekStudentu <= 1000)
     {
-        std::cout << "Ar zinote namu darbu skaiciu? Jei zinote, parasykite 'taip', kitu atveju rasykite 'ne' ";
+        std::cout << "Ar zinote namu darbu skaiciu? Jei zinote, parasykite 't', kitu atveju rasykite 'n' ";
         Ivedimas(arZinoKiek, rezultatai, kiekStudentu, sukurtiFailus, vidurkisArMediana);
     }
     else if (kiekStudentu < 0 || kiekStudentu > 1000 || std::cin.fail()) {
@@ -341,19 +344,25 @@ void KiekyraStudentu(std::string arZinoKiek, std::vector<Studentas>& rezultatai,
 void duomenys(std::string arZinoKiek, std::vector<Studentas>& rezultatai, std::string sukurtiFailus) {
     std::string duomenuIvedimas;
     std::cin >> duomenuIvedimas;
+    int k = 1;
+    for (int j = 0; j < k; j++)
+    {
+        if(duomenuIvedimas == "n" || duomenuIvedimas == "i"){}
+        else { ifFail(); std::cin >> duomenuIvedimas; k++; }
+    }
     std::string pav = "Studentai.txt";
-    if (duomenuIvedimas == "nuskaityti") {
+    if (duomenuIvedimas == "n") {
         std::string jo;
         std::cout << "Iveskite failo pavadinima: ";
         std::cin >> jo;
         pav = jo + ".txt";
     }
     std::string vidurkisArMediana;
-    if (duomenuIvedimas == "ivesti" || duomenuIvedimas == "Ivesti") {
+    if (duomenuIvedimas == "i") {
         std::cout << "Kiek yra studentu?: ";
         KiekyraStudentu(arZinoKiek, rezultatai, sukurtiFailus, vidurkisArMediana);
     }
-    else if (duomenuIvedimas == "nuskaityti" || duomenuIvedimas == "Nuskaityti") {
+    else if (duomenuIvedimas == "n") {
         int ndsk; NuskaitytiIsFailo(rezultatai, pav, sukurtiFailus, ndsk, vidurkisArMediana);
     }
     else {
@@ -365,7 +374,7 @@ void duomenys(std::string arZinoKiek, std::vector<Studentas>& rezultatai, std::s
 void generuotiFailus(int& n, std::vector<Studentas>& rezultatai, int& ndSk, std::string pav) {
     Studentas a;
     int input;
-       std::string vardas, pavarde;
+    std::string vardas, pavarde;
     std::ofstream gen(pav);
     gen << std::left << std::setw(20) << "Vardas ";
     gen << std::left << std::setw(20) << "Pavarde ";

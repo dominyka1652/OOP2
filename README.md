@@ -1,13 +1,35 @@
-### Program to count student grades
-#### This program 
+### Version 1.1 
+1. If you do not have codeblocks, download and install it [codeblocks](http://www.codeblocks.org/downloads)
+2. Download the chosen release and open the program
+3. Press the button F9 to run the program
+###### Or use cmd:
+1. make
+2. test
 
+### Go to previous versions to find out how to use this version step by step
 
-1. First version [v0.1](https://github.com/dominyka1652/OOP1/releases/tag/v0.1) or [v0.1-branch](https://github.com/dominyka1652/OOP1/tree/v0.1) allows you to enter name and surname of a student, homework grades and exam grade.
-You can choose if you want to calculate final grade using median or average. There is an opportunity to generate grades randomly. Realizations are made using two containers: a dynamic array and a vector.
-2. Second version [v0.2](https://github.com/dominyka1652/OOP1/releases/tag/v0.2) or [v0.2-branch](https://github.com/dominyka1652/OOP1/tree/v0.2) additionaly allows you to read data from a file and prints sorted data.
-3. Third version [v0.3](https://github.com/dominyka1652/OOP1/releases/tag/v0.3) or [v0.3-branch](https://github.com/dominyka1652/OOP1/tree/v0.3) is separated into .cpp files and header file. Also some exception handling was added.
-4. Fourth version [v0.4](https://github.com/dominyka1652/OOP1/releases/tag/v0.4) or [v0.4-branch](https://github.com/dominyka1652/OOP1/tree/v0.4) gives the opportunity to generate files. The program separates students into two files according to their final grades. You will be able to see how long each part of the program took.
-5. Fifth version [v0.5](https://github.com/dominyka1652/OOP1/releases/tag/v0.5) or [v0.5-branch](https://github.com/dominyka1652/OOP1/tree/v0.5) has 3 realizations using different containers: vector, list and deque.
-6. Final version [v1.0](https://github.com/dominyka1652/OOP1/releases/tag/v1.0) or [v1.0-branch](https://github.com/dominyka1652/OOP1/tree/v1.0) has 3 realizations using different containers: vector, list and deque. In this version the separation into two files has been changed: I copy data to a new container and delete that information from a old container.
+#### My PC :
+1. CPU - Intel core i7
+2. RAM - 8GB
+3. HDD - 1TB
 
-#### The explanations how to use each version are in branches.
+##### Results:
+Which program(this version using class or previous version using struct) is faster?
+  1. Reading data from a file:
+      - Nr1. class
+      - Nr2. struct
+  2. Separation:
+      - Nr1. struct
+      - Nr2. class
+      
+ Class version with and without flags:
+   1. Reading data from a file:
+      - Nr1. without
+      - Nr2. flag02
+      - Nr3. flag01
+      - Nr4. flag03
+   2. Separation:
+      - Nr1. flag01
+      - Nr2. without
+      - Nr3. flag03
+      - Nr4. flag02
