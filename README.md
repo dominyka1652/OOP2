@@ -14,6 +14,12 @@
 3. HDD - 1TB
 
 ##### Results:
+
+  100000  | 01 flag | 02 flag | 03 flag |
+----------|---------|---------|---------|
+Reading   |0.643377 |0.570177 |0.570218 |
+Separation|0.180775 |0.301975 |0,131514 |
+
 Which program(this version using class or previous version using struct) is faster?
   1. Reading data from a file:
       - Nr1. class
