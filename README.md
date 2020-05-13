@@ -11,6 +11,8 @@ You can choose if you want to calculate final grade using median or average. The
 6. Final version [v1.0](https://github.com/dominyka1652/OOP1/releases/tag/v1.0) or [v1.0-branch](https://github.com/dominyka1652/OOP1/tree/v1.0) has 3 realizations using different containers: vector, list and deque. In this version the separation into two files has been changed: I copy data to a new container and delete that information from a old container.
 
 
-7.New version [v1.1](https://github.com/dominyka1652/OOP2/releases/tag/v1.1). In this version i have changed my stuct into class. 
+7. New version [v1.1](https://github.com/dominyka1652/OOP2/releases/tag/v1.1). In this version i have changed my struct into class. 
+8. Version [v1.2](https://github.com/dominyka1652/OOP2/releases/tag/v1.2). In this version i added rule of three and some operators.
+9. Version [v1.3](https://github.com/dominyka1652/OOP2/releases/tag/v1.5). In this 
 
 #### The explanations how to use each version are in branches.
