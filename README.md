@@ -13,6 +13,6 @@ You can choose if you want to calculate final grade using median or average. The
 
 7. New version [v1.1](https://github.com/dominyka1652/OOP2/releases/tag/v1.1). In this version i have changed my struct into class. 
 8. Version [v1.2](https://github.com/dominyka1652/OOP2/releases/tag/v1.2). In this version i added rule of three and some operators.
-9. Version [v1.3](https://github.com/dominyka1652/OOP2/releases/tag/v1.5). In this 
+9. Version [v1.5](https://github.com/dominyka1652/OOP2/releases/tag/v1.5). In this 
 
 #### The explanations how to use each version are in branches.
