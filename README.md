@@ -1,7 +1,7 @@
 ### Version 1.1 
-1. If you do not have codeblocks, download and install it [codeblocks](http://www.codeblocks.org/downloads)
-2. Download the chosen release and open the program
-3. Press the button F9 to run the program
+1. If you do not have visual studio, download and install it.
+2. Open the project file v1.1.vcxproj
+3. Press the button F5 to run the program
 ###### Or use cmd:
 1. make
 2. test
