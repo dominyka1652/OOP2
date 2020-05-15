@@ -1,0 +1,13 @@
+main: v2.0setget.o v2.0fun.o
+        g++ -o test tests.cpp v2.0setget.o v2.0fun.o
+
+setget:
+        g++ -c v2.0setget.cpp
+
+fun: 
+        g++ -c v2.0fun.cpp
+
+clean:
+        rm *.o main
+
+
