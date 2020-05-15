@@ -1,4 +1,4 @@
-### Version 1.5
+### Version v2.0
 1. If you do not have visual studio, download and install it 
 2. Download the chosen release and open the project file .vxcproj
 3. Press the button F5 to run the program
