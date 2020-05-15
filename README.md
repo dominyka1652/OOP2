@@ -17,3 +17,47 @@ You can choose if you want to calculate final grade using median or average. The
 10. Version [v2.0](https://github.com/dominyka1652/OOP2/tree/v2.0). In this version I made unit tests.
 
 #### The explanations how to use each version are in branches.
+
+### Usage of versions
+1. If you do not have visual studio, download and install it 
+2. Download the chosen release and open a project file 
+3. Press the button F5 to run the program or use make file
+
+###
+1. The program asks you if you want to create files (write "s") or not (write "n")
+2. If you choose yes:
+    - enter the number of files you want to generate
+    - enter the number of sudents
+    - enter the number of homeworks
+    - enter "v" if you want to get the average or enter "m" if you want to get median.   
+    - if you choose more ten 1 file, then the program asks you to enter everything that is mentioned from b)
+3. If you choose no:
+    - enter "i" if you want to input data manually or enter "n" if you want to read from a file:
+      - if you choose "i":
+      - Enter the name of a input file
+      - In a next step enter the number of homework marks that is written in a file
+      - Then write "v" if you want to get a average of grades or "m" if you want to get median. After this a file named           "Rezultatai" will be created in the same location as your program. 
+          - If you choose to enter data manually:
+          - Enter the number of students 
+          - Enter the answer to the question: if you know the number of homeworks type "t", if not then type "n".
+a. If you choose yes:    
+    - The program asks you to enter the number of marks
+    - Write the surname of student
+    - Then write the name of student
+    - After these steps the programs asks you if you want to write marks by yourself (write "i") or to generate randomly (write "s"):
+      - If you choose to enter marks by yourself write as many grades as you entered before and when you are done write the number 0 and then enter egzam rezult. After these steps input starts again with writing name of a student.
+      - If you choose to generate marks randomly, they will appear on the screen and inputs start again with writing name of a student.
+    - when you are done with input the program asks you if you want to get a average (enter "v") or a median (enter "m" and the output file will be created
+b. If you choose no:
+     - Program asks you to write the name of student
+     - After this write the surname of student
+     - After these steps the programs asks you if you want to write marks by yourself (write "i") or to generate randomly (write "s")
+       - If you choose to enter marks by yourself write as many grades as you want and when you are done write the number 0 and then enter egzam rezult. After these steps input starts again with writing name of a student.
+       - If you choose to generate marks randomly, the next step is to enter the number of grades you want to be generated. They will appear on the screen and input starts again with writing name of a student.
+    - when you are done with input the program asks you if you want to get a average (enter "v") or a median (enter "m" and the output file will be created
+
+      
+ 4.  - if you choose "n" enter name of the file without ".txt"</h6>
+     - enter the number of marks without exam </h6>
+     - write "v" if you want to get an average or "m" if you want to get a median</h6>
+
